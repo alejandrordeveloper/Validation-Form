@@ -12,19 +12,20 @@
       <div1 class="input-form">
         <label for="">Username:</label>
         <input type="text" id="username" placeholder="Ej. Pedro22" />
-      </div1>
-      <p class="informacion">
-          Debe contener al menos 1 letra minuscula y un numero. Minimo 6 y maximo 16 caracteres.
+        <p id="informacion">
+          Debe contener al menos 1 letra minuscula y un numero. Minimo 6 y
+          maximo 16 caracteres.
         </p>
+      </div1>
 
       <div2 class="input-form">
         <label for="">Email:</label>
         <input type="email" id="email" placeholder="Ej. Pedro22@gmail.com" />
-      </div2>
-      <p class="informacion">
+        <p id="informacion">
           Debe tener el siguiente formato "pedro22@gmail.com".
         </p>
-      
+      </div2>
+
       <div class="input-form">
         <label for="">Country:</label>
         <select id="countries">
@@ -302,27 +303,26 @@
           <option data-countryCode="ZM" value="260">Zambia (+260)</option>
           <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
         </select>
+        <p id="informacion">Debe Seleccionar un pais.</p>
       </div>
-      <p class="informacion">Debe Seleccionar un pais.</p>
 
       <div class="input-form">
         <label for="">Phone Number:</label>
         <div>
-          <span id="phone-code"></span>
+          <span id="phone-code">##</span>
           <input type="tel" id="phone-number" placeholder="0414-9278341" />
+          <p id="informacion">Debe contener solo numeros.</p>
         </div>
       </div>
-      <p class="informacion">
-          Debe contener solo numeros.
-        </p>
 
       <div class="input-form">
         <label for="">Password:</label>
         <input type="password" id="password" placeholder="Ej. Pedro22*" />
-      </div>
-      <p class="informacion">
-          Debe contener al menos 1 letra minuscula, mayuscula y 1 numero. Minimo 6 y maximo 10 caracteres.
+        <p id="informacion">
+          Debe contener al menos 1 letra minuscula, mayuscula y 1 numero. Minimo
+          6 y maximo 10 caracteres.
         </p>
+      </div>
       <div class="input-form">
         <label for="">Confirm Password:</label>
         <input
@@ -330,11 +330,9 @@
           id="confirm-password"
           placeholder="Ej. Pedro22*"
         />
+        <p id="informacion">Debe coincidir con el password.</p>
       </div>
-      <p class="informacion">
-          Debe coincidir con el password.
-        </p>
-        <button id="form-btn" disabled>Submit</button>
+      <button id="form-btn" disabled>Submit</button>
     </form>
     <script src="index.js"></script>
   </body>

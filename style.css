@@ -42,6 +42,12 @@ h1{
     /* margin-left: 265px; */
 }
 
+/* ocultar los mensajes */
+.user-validate{
+    display: none;
+}
+
+
 #country-codes{
     width: 100px;
 }
