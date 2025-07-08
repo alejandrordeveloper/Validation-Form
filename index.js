@@ -67,74 +67,24 @@ function validation(e, regex, selector, informacion) {
   }
 }
 
-// usernameInput.addEventListener("input", (e) => {
-//   //agg el evento
-//   let username = e.target.value; //agg los valores
-//   // console.log(e.target.value);
-//   let userValidation = userRegex.test(username); //validar con el Regex
-//   // console.log(userValidation);
 
-//   if (userValidation) {
-//     usernameInput.classList.add("correct");
-//     usernameInput.classList.remove("incorrect");
-//     informacion.classList.add("user-validate")
-//   } else {
-//     usernameInput.classList.add("incorrect");
-//     informacion.classList.remove("user-validate")
-//   }
-// });
-
-// emailInput.addEventListener("input", (e) => {
-//   let email = e.target.value;
-//   // console.log(e.target.value);
-//   let emailValidation = emailRegex.test(email);
-//   // console.log(emailValidation);
-
-//   if (emailValidation) {
-//     emailInput.classList.add("correct");
-//     emailInput.classList.remove("incorrect");
-//     informacion.classList.add("user-validate")
-//   } else {
-//     emailInput.classList.add("incorrect");
-//     informacion.classList.remove("user-validate")
-//   }
-// });
-
-// phoneNumber.addEventListener("input", (e) => {
-//   let phone = e.target.value;
-//   // console.log(e.target.value);
-//   let phoneValidation = phonenumberRegex.test(phone);
-//   // console.log(phoneValidation);
-
-//   if (phoneValidation) {
-//     phoneNumber.classList.add("correct");
-//     phoneNumber.classList.remove("incorrect");
-//   } else {
-//     phoneNumber.classList.add("incorrect");
-//   }
-// });
-
-// passwordInput.addEventListener("input", (e) => {
-//   let password = e.target.value;
-//   // console.log(e.target.value);
-//   let passwordValidation = passwordRegex.test(password);
-//   // console.log(passwordValidation);
-//   if (passwordValidation) {
-//     passwordInput.classList.add("correct");
-//     passwordInput.classList.remove("incorrect");
-//   } else {
-//     passwordInput.classList.add("incorrect");
-//   }
-// });
 
 confirmPasswordInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  validation(e, passwordRegex, confirmPasswordInput, informacion);
+  const passwordValue = passwordInput.value;
+  const confirmPasswordValue = confirmPasswordInput.value;
+  // validation(e, passwordRegex, confirmPasswordInput, informacion);
 
-  if (confirmPassword === password) {
+  // Primero valida el regex
+  const isValid = passwordRegex.test(confirmPasswordValue);
+
+  if (isValid && confirmPasswordValue === passwordValue) {
     confirmPasswordInput.classList.add("correct");
     confirmPasswordInput.classList.remove("incorrect");
+     informacion.classList.add("user-validate");
   } else {
     confirmPasswordInput.classList.add("incorrect");
+    confirmPasswordInput.classList.remove("correct");
+    informacion.classList.remove("user-validate");
   }
 });
