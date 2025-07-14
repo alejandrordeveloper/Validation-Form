@@ -11,7 +11,14 @@ const phoneCode = document.querySelector("#phone-code");
 const phoneNumber = document.querySelector("#phone-number");
 const passwordInput = document.querySelector("#password");
 const confirmPasswordInput = document.querySelector("#confirm-password");
-// const informacion = document.querySelector("#informacion");
+const formbtn = document.querySelector("#form-btn");
+
+let userValidation = false;
+let emailValidation = false;
+let phoneValidation = false;
+let passwordValidation = false;
+let confirmPasswordValidation = false;
+let countryValidation = false;
 
 // operador de propagacion
 let arrayCountries = [...countries];
@@ -27,33 +34,49 @@ arrayCountries.forEach((country) => {
 
 usernameInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  validation(e, userRegex, username, informacion);
+  validation(e, userRegex, username, informacion, userValidation);
 });
 
 emailInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  validation(e, emailRegex, email, informacion);
+  validation(e, emailRegex, email, informacion, emailValidation);
 });
 
 phoneNumber.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  validation(e, phonenumberRegex, phoneNumber, informacion);
+ phoneValidation = validation(e, phonenumberRegex, phoneNumber, informacion, phoneValidation);
 });
 
 passwordInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  validation(e, passwordRegex, password, informacion);
+  passwordValidation = validation(e, passwordRegex, password, informacion, passwordValidation);
 });
 
-countries.addEventListener("change", function () { 
- codeNumber = this.value;
- phoneCode.innerHTML = `+${codeNumber}`
+confirmPasswordInput.addEventListener("input", (e) => {
+  let informacion = e.target.parentElement.children[2];
+  const idConfirmPasswordInput = e.target.id;
+  confirmPasswordValidation = validation(
+    e,
+    confirmPasswordInput,
+    idConfirmPasswordInput,
+    informacion
+  );
+});
+
+countries.addEventListener("change", function () {
+  codeNumber = this.value;
+  phoneCode.innerHTML = `+${codeNumber}`;
+  countryValidation = codeNumber !== "" ? true : false;
 });
 
 // se reutiliza la validacion para los otros inputs
 function validation(e, regex, selector, informacion) {
   let inputValue = e.target.value;
-  let validate = regex.test(inputValue);
+  const passwordValue = password.value;
+  let validate =
+    regex === "confirm-password"
+      ? passwordValue === inputValue
+      : regex.test(inputValue);
 
   if (validate) {
     selector.classList.add("correct");
@@ -66,25 +89,3 @@ function validation(e, regex, selector, informacion) {
     informacion.classList.remove("user-validate");
   }
 }
-
-
-
-confirmPasswordInput.addEventListener("input", (e) => {
-  let informacion = e.target.parentElement.children[2];
-  const passwordValue = passwordInput.value;
-  const confirmPasswordValue = confirmPasswordInput.value;
-  // validation(e, passwordRegex, confirmPasswordInput, informacion);
-
-  // Primero valida el regex
-  const isValid = passwordRegex.test(confirmPasswordValue);
-
-  if (isValid && confirmPasswordValue === passwordValue) {
-    confirmPasswordInput.classList.add("correct");
-    confirmPasswordInput.classList.remove("incorrect");
-     informacion.classList.add("user-validate");
-  } else {
-    confirmPasswordInput.classList.add("incorrect");
-    confirmPasswordInput.classList.remove("correct");
-    informacion.classList.remove("user-validate");
-  }
-});
