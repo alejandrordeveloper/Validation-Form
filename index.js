@@ -10,15 +10,16 @@ const emailInput = document.querySelector("#email");
 const phoneCode = document.querySelector("#phone-code");
 const phoneNumber = document.querySelector("#phone-number");
 const passwordInput = document.querySelector("#password");
-const confirmPasswordInput = document.querySelector("#confirm-password");
-const formbtn = document.querySelector("#form-btn");
+const confirmPasswordInput = document.querySelector("#confirmPassword");
+const formBtn = document.querySelector("#form-btn");
+let form = document.querySelector("#form");
 
 let userValidation = false;
 let emailValidation = false;
 let phoneValidation = false;
 let passwordValidation = false;
 let confirmPasswordValidation = false;
-let countryValidation = false;
+let countriesValidation = false;
 
 // operador de propagacion
 let arrayCountries = [...countries];
@@ -26,55 +27,91 @@ let arrayCountries = [...countries];
 // iteracion
 arrayCountries.forEach((country) => {
   // split
-  let onlyCountry = country.innerText.split("(")[0];
-  country.innerHTML = onlyCountry;
+  let onlyCountries = country.innerText.split("(")[0];
+  country.innerHTML = onlyCountries;
 });
+
+// Funcion para habilitar el boton de envio del formulario
+
+function confirmInput() {
+  const isFormValid =
+    userValidation &&
+    emailValidation &&
+    phoneValidation &&
+    passwordValidation &&
+    confirmPasswordValidation &&
+    countriesValidation;
+    
+  formBtn.disabled = !isFormValid;
+}
+
 
 // validaciones
 
 usernameInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  validation(e, userRegex, username, informacion, userValidation);
+  userValidation = validation(e, userRegex, usernameInput, informacion);
+  confirmInput();
 });
 
 emailInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  validation(e, emailRegex, email, informacion, emailValidation);
+  emailValidation = validation(e, emailRegex, emailInput, informacion);
+  confirmInput();
 });
 
 phoneNumber.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
- phoneValidation = validation(e, phonenumberRegex, phoneNumber, informacion, phoneValidation);
+  phoneValidation = validation(e, phonenumberRegex, phoneNumber, informacion);
+  confirmInput();
 });
 
 passwordInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  passwordValidation = validation(e, passwordRegex, password, informacion, passwordValidation);
+  passwordValidation = validation(e, passwordRegex, passwordInput, informacion);
+  confirmInput();
 });
 
 confirmPasswordInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
-  const idConfirmPasswordInput = e.target.id;
   confirmPasswordValidation = validation(
     e,
+    "confirmPassword",
     confirmPasswordInput,
-    idConfirmPasswordInput,
     informacion
   );
+  confirmInput();
 });
 
-countries.addEventListener("change", function () {
-  codeNumber = this.value;
+countries.addEventListener("change", function (e) {
+  let codeNumber = this.value;
   phoneCode.innerHTML = `+${codeNumber}`;
-  countryValidation = codeNumber !== "" ? true : false;
+  phoneNumber.value = ""; // Borra el input del teléfono
+  let informacion = this.parentElement.children[2];
+  this.classList.add("correct");
+  phoneCode.classList.add("correct");
+  countriesValidation = codeNumber !== "" ? true : false;
+  confirmInput();
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // Evita que se recargue la página al enviar el formulario
+  const user = {
+    username: usernameInput.value,
+    email: emailInput.value,
+    phone: `${phoneCode.innerHTML} ${phoneNumber.value}`,
+  };
+  console.log("Formulario enviado. Datos:", user);
+  alert("¡Te registraste correctamente!");
 });
 
 // se reutiliza la validacion para los otros inputs
 function validation(e, regex, selector, informacion) {
   let inputValue = e.target.value;
   const passwordValue = password.value;
+
   let validate =
-    regex === "confirm-password"
+    regex === "confirmPassword"
       ? passwordValue === inputValue
       : regex.test(inputValue);
 
@@ -88,4 +125,5 @@ function validation(e, regex, selector, informacion) {
     // info message
     informacion.classList.remove("user-validate");
   }
+  return validate;
 }

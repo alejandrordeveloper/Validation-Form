@@ -39,7 +39,9 @@ h1{
     background-color: rgb(238, 37, 188);
     border-radius: 5px; 
     cursor: pointer;
-    /* margin-left: 265px; */
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
 /* ocultar los mensajes */
