@@ -31,45 +31,30 @@ arrayCountries.forEach((country) => {
   country.innerHTML = onlyCountries;
 });
 
-// Funcion para habilitar el boton de envio del formulario
-
-function confirmInput() {
-  const isFormValid =
-    userValidation &&
-    emailValidation &&
-    phoneValidation &&
-    passwordValidation &&
-    confirmPasswordValidation &&
-    countriesValidation;
-    
-  formBtn.disabled = !isFormValid;
-}
-
-
 // validaciones
 
 usernameInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
   userValidation = validation(e, userRegex, usernameInput, informacion);
-  confirmInput();
+  submitValidation()
 });
 
 emailInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
   emailValidation = validation(e, emailRegex, emailInput, informacion);
-  confirmInput();
+  submitValidation()
 });
 
 phoneNumber.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
   phoneValidation = validation(e, phonenumberRegex, phoneNumber, informacion);
-  confirmInput();
+  submitValidation()
 });
 
 passwordInput.addEventListener("input", (e) => {
   let informacion = e.target.parentElement.children[2];
   passwordValidation = validation(e, passwordRegex, passwordInput, informacion);
-  confirmInput();
+  submitValidation()
 });
 
 confirmPasswordInput.addEventListener("input", (e) => {
@@ -80,18 +65,16 @@ confirmPasswordInput.addEventListener("input", (e) => {
     confirmPasswordInput,
     informacion
   );
-  confirmInput();
+  submitValidation()
 });
 
 countries.addEventListener("change", function (e) {
   let codeNumber = this.value;
   phoneCode.innerHTML = `+${codeNumber}`;
   phoneNumber.value = ""; // Borra el input del teléfono
-  let informacion = this.parentElement.children[2];
   this.classList.add("correct");
   phoneCode.classList.add("correct");
   countriesValidation = codeNumber !== "" ? true : false;
-  confirmInput();
 });
 
 form.addEventListener("submit", (e) => {
@@ -126,4 +109,23 @@ function validation(e, regex, selector, informacion) {
     informacion.classList.remove("user-validate");
   }
   return validate;
+}
+
+// Funcion para habilitar el boton de envio del formulario
+
+function submitValidation() {
+  // Calcula la condición cada vez que se llama la función
+  let condition =
+    userValidation &&
+    emailValidation &&
+    phoneValidation &&
+    passwordValidation &&
+    confirmPasswordValidation &&
+    countriesValidation;
+
+  if (condition) {
+    formBtn.removeAttribute("disabled");
+  } else {
+    formBtn.disabled = true;
+  }
 }
