@@ -114,7 +114,6 @@ function validation(e, regex, selector, informacion) {
 // Funcion para habilitar el boton de envio del formulario
 
 function submitValidation() {
-  // Calcula la condición cada vez que se llama la función
   let condition =
     userValidation &&
     emailValidation &&

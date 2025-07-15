@@ -61,10 +61,10 @@ h1 {
     outline: none;
 }
 
-.input-form input:focus,
+/* .input-form input:focus,
 .input-form select:focus {
     border: 1.5px solid rgb(238, 37, 188);
-}
+} */
 
 .phone-group {
     display: flex;
@@ -81,26 +81,25 @@ h1 {
     text-align: center;
 }
 
-.info-message {
+/* .info-message {
     display: none;
     font-size: 0.92rem;
     color: #e53e3e;
     margin-top: 2px;
     margin-bottom: 0;
     transition: color 0.2s;
-}
+} */
 
 .user-validate {
-    color: #38a169 !important;
-    display: block !important;
-}
+    display: none;
+} 
 
-.correct {
-    outline: 2px solid #38a169;
+.correct{
+    outline: 2px solid rgb(11, 235, 11) ;
 }
 
 .incorrect {
-    outline: 2px solid #e53e3e;
+    outline: 2px solid rgb(235, 11, 11) ;
 }
 
 #form-btn {
@@ -149,4 +148,3 @@ footer {
         font-size: 2rem;
     }
 }
-
